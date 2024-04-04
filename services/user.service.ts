@@ -33,19 +33,18 @@ class UserService {
       connection = await connection_pool.getConnection();
       await connection.beginTransaction();
 
-      const result = (await connection.query(
-        "INSERT INTO users SET ?",
-        newUser
-      )) as any;
-
+      const result = (
+        await connection.query("INSERT INTO users SET ?", newUser)
+      )[0] as { insertId?: number };
+      if (!result.insertId) throw new Error("insert ERr");
       const createdProfile: UserProfileIncludedUid = {
         ...newProfile,
-        uid: result[0].insertId,
+        uid: result.insertId,
       };
       await connection.query("INSERT INTO profiles SET ?", createdProfile);
       const [rows, fields] = (await connection.query(
         "SELECT * FROM users WHERE uid = ?",
-        [result[0].insertId]
+        [result.insertId]
       )) as [UserIncludedUid[], object];
       await connection.commit();
       connection.release();
