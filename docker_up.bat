@@ -1,0 +1,1 @@
+docker-compsoe up --build
