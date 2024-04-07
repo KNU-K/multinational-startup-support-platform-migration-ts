@@ -1,15 +1,15 @@
-# Node.js ê¸°ë°˜ ì´ë¯¸ì§€ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤.
+# Node.js ê¸°ë°˜ ?´ë¯¸ì??ë¥? ê°?? ¸?˜µ?‹ˆ?‹¤.
 FROM node:20
 
-# ì•± ë””ë ‰í† ë¦¬ë¥¼ ìƒì„±í•˜ê³  ìž‘ì—… ë””ë ‰í† ë¦¬ë¡œ ì„¤ì •í•©ë‹ˆë‹¤.
+# ?•± ?””? ‰?† ë¦¬ë?? ?ƒ?„±?•˜ê³? ?ž‘?—… ?””? ‰?† ë¦¬ë¡œ ?„¤? •?•©?‹ˆ?‹¤.
 WORKDIR /usr/src/app
-# ì•± ì¢…ì†ì„± ì„¤ì¹˜
+# ?•± ì¢…ì†?„± ?„¤ì¹?
 COPY package*.json ./
 RUN npm i
 RUN npm i ts-node -g
 RUN npm i bcrypt @types/bcrypt
-# ì•± ì†ŒìŠ¤ ë³µì‚¬
+# ?•± ?†Œ?Š¤ ë³µì‚¬
 COPY . .
 
-# ì•± ì‹¤í–‰
-CMD ["ts-node", "app.ts"]
+# ?•± ?‹¤?–‰
+CMD ["ts-node", "server.ts"]
