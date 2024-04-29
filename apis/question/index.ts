@@ -8,6 +8,7 @@ import answerController from "../../controllers/answer.controller";
 const router = Router();
 
 /**TODO:consider pagination behavior */
+/**TODO: 좋아요 순, 조회 순으로 */
 router.post("/", guardMiddleware, questionController.create);
 router.get("/", questionController.read);
 router.get("/:qid", guardMiddleware, questionController.readOneByQid);

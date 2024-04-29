@@ -59,9 +59,7 @@ class UserService {
     }
   }
 
-  async readProfileByUid(
-    uid: number
-  ): Promise<UserAndUserProfile | { err_code: number; msg: string }> {
+  async readProfileByUid(uid: number) {
     let connection;
     try {
       connection = await connection_pool.getConnection();
@@ -69,13 +67,26 @@ class UserService {
         "select u.uid, username,email, joindate,birthdate, nationality, region, tel, interests, role  from users u, profiles p where u.uid = p.uid and u.uid=?",
         [uid]
       )) as [UserAndUserProfile[], object];
+      const [rowsFirst, fields2] = (await connection.query(
+        "select s.sid, title, content, status from sponse s, recruit_board r where s.id = r.id and r.uid = 1 and status != ?",
+        [uid, "reject"]
+      )) as [any[], object];
+      const [rowsSecond, fields3] = (await connection.query(
+        "select s.rid, title, content, status from recruit s, recruit_board r where s.id = r.id and r.uid = 1 and status != ?",
+        [uid, "reject"]
+      )) as [any[], object];
+
       connection.release();
       if (rows.length === 0)
         return {
           err_code: -1,
           msg: "cannot found User",
         };
-      return rows[0];
+      return {
+        info: rows[0],
+        sponse_info: rowsFirst[0],
+        recruit_info: rowsSecond[0],
+      };
     } catch (err) {
       throw err;
     }
