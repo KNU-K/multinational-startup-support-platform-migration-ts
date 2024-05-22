@@ -77,7 +77,7 @@ class SponseBoardController {
       const uid = 1;
       if (!status) throw new Error("status is required");
       await sponseBoardService.approveWithRecruit(recruitId, uid, status);
-      res.json({ msg: "successfully invest" });
+      res.json({ msg: "successfully recruit" });
     } catch (err) {
       next(err);
     }

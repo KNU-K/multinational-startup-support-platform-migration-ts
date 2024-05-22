@@ -58,7 +58,7 @@ class QuestionService {
         ...rows[0][0],
         child: [],
       };
-      this.questions.push(hierarchicalQuestion);
+      this.questions.unshift(hierarchicalQuestion);
       return rows[0][0];
     } catch (err) {
       throw err;
@@ -207,10 +207,10 @@ class QuestionService {
 
       const updatedIndex = this.questions.findIndex((q) => q.qid === qid);
       if (updatedIndex !== -1) {
-        this.questions[updatedIndex] = rows[0];
+        this.questions[updatedIndex] = rows[0][0];
       }
 
-      return rows[0];
+      return rows[0][0];
     } catch (err) {
       throw err;
     }

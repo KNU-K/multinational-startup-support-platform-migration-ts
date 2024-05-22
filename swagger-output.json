@@ -7,7 +7,9 @@
   },
   "host": "localhost:8000/api",
   "basePath": "/",
-  "schemes": ["http"],
+  "schemes": [
+    "http"
+  ],
   "paths": {
     "/user/": {
       "post": {
@@ -20,31 +22,31 @@
               "type": "object",
               "properties": {
                 "username": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "email": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "password": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "birthdate": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "nationality": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "region": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "tel": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "interests": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "role": {
-                  "example": "Sponsor/Entrepreneur"
+                  "example": "any"
                 }
               }
             }
@@ -83,10 +85,34 @@
               "type": "object",
               "properties": {
                 "email": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "password": {
-                  "example": "string"
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created"
+          }
+        }
+      }
+    },
+    "/auth/refresh": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "verifyToken(token": {
+                  "example": "any"
                 }
               }
             }
@@ -115,10 +141,10 @@
               "type": "object",
               "properties": {
                 "title": {
-                  "example": "string"
+                  "example": "any"
                 },
                 "content": {
-                  "example": "string"
+                  "example": "any"
                 }
               }
             }
@@ -136,12 +162,12 @@
           {
             "name": "pageNumber",
             "in": "query",
-            "type": "number"
+            "type": "string"
           },
           {
             "name": "pageSize",
             "in": "query",
-            "type": "number"
+            "type": "string"
           }
         ],
         "responses": {
@@ -599,6 +625,196 @@
           {
             "name": "authorization",
             "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "pageNumber",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          },
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "title": {
+                  "example": "any"
+                },
+                "content": {
+                  "example": "any"
+                },
+                "numberOfRecruits": {
+                  "example": "any"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/{id}": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/{sid}/recruit": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/{sid}/invest": {
+      "post": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "sid",
+            "in": "path",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "authorization",
+            "in": "header",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/invest": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/recruit-board/recruit": {
+      "put": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "status",
+            "in": "query",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/search/": {
+      "get": {
+        "description": "",
+        "parameters": [
+          {
+            "name": "keyword",
+            "in": "query",
+            "type": "string"
+          },
+          {
+            "name": "target",
+            "in": "query",
             "type": "string"
           }
         ],

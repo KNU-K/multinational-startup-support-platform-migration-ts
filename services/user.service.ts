@@ -68,11 +68,11 @@ class UserService {
         [uid]
       )) as [UserAndUserProfile[], object];
       const [rowsFirst, fields2] = (await connection.query(
-        "select s.sid, title, content, status from sponse s, recruit_board r where s.id = r.id and r.uid = 1 and status != ?",
+        "select s.sid, title, content, status from sponse s, recruit_board r where s.id = r.id and r.uid = ? and status != ?",
         [uid, "reject"]
       )) as [any[], object];
       const [rowsSecond, fields3] = (await connection.query(
-        "select s.rid, title, content, status from recruit s, recruit_board r where s.id = r.id and r.uid = 1 and status != ?",
+        "select s.rid, title, content, status from recruit s, recruit_board r where s.id = r.id and r.uid =?  and status != ?",
         [uid, "reject"]
       )) as [any[], object];
 

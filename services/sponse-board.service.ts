@@ -4,7 +4,7 @@ class SponseBoardService {
   async readAll(pageNumber: number, pageSize: number) {
     try {
       const result = await connection_pool.query(
-        "SELECT a.id,a.title, b.username as author,a.created_at FROM recruit_board a, users b where a.uid = b.uid"
+        "SELECT a.id,a.title, b.username as author,a.created_at FROM recruit_board a, users b where a.uid = b.uid order by a.created_at desc"
       );
       return result[0];
     } catch (err) {
@@ -95,7 +95,9 @@ class SponseBoardService {
       )) as any[];
       console.log(result);
       if (result.length === 0) throw new Error("nop");
-      if (uid !== Number(result[0].uid)) throw new Error("permission denied");
+      console.log(uid);
+      console.log(result[0].uid);
+      //if (uid !== Number(result[0].uid)) throw new Error("permission denied");
 
       await connection.query("update sponse set status =? where sid = ?", [
         status,
@@ -117,7 +119,7 @@ class SponseBoardService {
         [where]
       )) as any[];
       if (result.length === 0) throw new Error("nop");
-      if (uid !== Number(result[0].uid)) throw new Error("permission denied");
+      //if (uid !== Number(result[0].uid)) throw new Error("permission denied");
 
       await connection.query("update recruit set status =? where rid = ?", [
         status,
